@@ -1,19 +1,13 @@
 package com.droidplusplus.gridviewsample
 
-import android.content.Context
 import android.os.Bundle
-import android.view.GestureDetector
-import android.view.GestureDetector.SimpleOnGestureListener
-import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
 import com.droidplusplus.gridviewsample.databinding.ActivityMainBinding
 
-
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), RecyclerViewOnItemTouchListener.RecyclerItemClickListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -79,29 +73,23 @@ class MainActivity : AppCompatActivity() {
                 binding.recyclerView.adapter?.notifyItemRemoved(position)
             }
         })
+
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 
-//        binding.recyclerView.addOnItemTouchListener(RecyclerViewItemTouchListener())
-
         binding.recyclerView.addOnItemTouchListener(
-            RecyclerItemClickListener(
+            RecyclerViewOnItemTouchListener(
                 this,
                 binding.recyclerView,
-                object : RecyclerItemClickListener.OnItemClickListener {
-                    override fun onItemClick(view: View?, position: Int) {
-                        isLongPress = false
-                    }
-
-                    override fun onItemLongClick(view: View?, position: Int) {
-                        isLongPress = true
-                    }
-                })
+                this
+            )
         )
+    }
 
-        binding.saveButton.setOnClickListener {
-            adapter.currentList.forEachIndexed { index, imageViewItem ->
-                println("Item -> $index with ${imageViewItem.order}")
-            }
-        }
+    override fun onItemClick(view: View?, position: Int) {
+        isLongPress = false
+    }
+
+    override fun onLongItemClick(view: View?, position: Int) {
+        isLongPress = true
     }
 }

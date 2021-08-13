@@ -12,11 +12,12 @@ import com.droidplusplus.gridviewsample.databinding.LayoutImageItemBinding
 class ImagesListAdapter :
     ListAdapter<ImageViewItem, MViewHolder>(MDiffUtilCallBack()) {
 
-    val TAG  = "ImagesListAdapter"
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MViewHolder {
-        val binding = LayoutImageItemBinding.inflate(LayoutInflater.from(parent.context),
+        val binding = LayoutImageItemBinding.inflate(
+            LayoutInflater.from(parent.context),
             parent,
-            false)
+            false
+        )
         return MViewHolder(binding)
     }
 
@@ -24,7 +25,8 @@ class ImagesListAdapter :
         holder.bind(getItem(position))
     }
 
-    inner class MViewHolder(private val binding: LayoutImageItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MViewHolder(private val binding: LayoutImageItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ImageViewItem?) {
 
             item?.imageUrl?.takeIf { it.isNotBlank() }?.let { url ->
