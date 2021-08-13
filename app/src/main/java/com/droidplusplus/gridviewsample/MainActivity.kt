@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewOnItemTouchListener.Recycl
 
     var imagesList = mutableListOf<ImageViewItem>()
 
-    lateinit var adapter: ImagesListAdapter
+    private lateinit var adapter: ImagesListAdapter
 
     companion object {
         var isLongPress = false

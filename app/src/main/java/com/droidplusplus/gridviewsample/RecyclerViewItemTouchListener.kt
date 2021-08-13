@@ -17,7 +17,7 @@ class RecyclerViewOnItemTouchListener(
         fun onLongItemClick(view: View?, position: Int)
     }
 
-    var mGestureDetector: GestureDetector =
+    private var mGestureDetector: GestureDetector =
         GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
             override fun onSingleTapUp(e: MotionEvent): Boolean {
                 return true
