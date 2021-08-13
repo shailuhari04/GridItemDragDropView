@@ -87,9 +87,11 @@ class MainActivity : AppCompatActivity(), RecyclerViewOnItemTouchListener.Recycl
 
     override fun onItemClick(view: View?, position: Int) {
         isLongPress = false
+        adapter.onItemClick(view, position)
     }
 
     override fun onLongItemClick(view: View?, position: Int) {
         isLongPress = true
+        adapter.onLongItemClick(view, position)
     }
 }
