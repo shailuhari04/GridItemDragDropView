@@ -1,10 +1,10 @@
 package com.droidplusplus.gridviewsample
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +16,8 @@ class ImagesListAdapter :
     ListAdapter<ImageViewItem, MViewHolder>(MDiffUtilCallBack()) {
 
     private lateinit var context: Context
+
+    private var recentMovedItemPosition: Int = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MViewHolder {
         context = parent.context
@@ -48,7 +50,20 @@ class ImagesListAdapter :
                 } else {
                     binding.selectionMarkImageView.visibility = View.GONE
                 }
+
+                if (recentMovedItemPosition == adapterPosition)
+                    binding.root.setBackgroundColor(Color.YELLOW)
+                else
+                    binding.root.setBackgroundColor(Color.DKGRAY)
             }
+        }
+
+        fun onClearView() {
+            binding.root.setBackgroundColor(Color.YELLOW)
+        }
+
+        fun onSelectedChanged() {
+            binding.root.setBackgroundColor(Color.RED)
         }
     }
 
@@ -58,12 +73,16 @@ class ImagesListAdapter :
     }
 
     fun onLongItemClick(view: View?, position: Int) {
-        view?.setBackgroundColor(
-            ContextCompat.getColor(
-                context,
-                R.color.teal_700
-            )
-        )
+
+    }
+
+    fun onClearView(viewHolder: RecyclerView.ViewHolder) {
+        recentMovedItemPosition = viewHolder.adapterPosition
+        (viewHolder as? MViewHolder)?.onClearView()
+    }
+
+    fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?) {
+        (viewHolder as? MViewHolder)?.onSelectedChanged()
     }
 }
 

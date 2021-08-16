@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.droidplusplus.gridviewsample.data.FakeData
 import com.droidplusplus.gridviewsample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), RecyclerViewOnItemTouchListener.RecyclerItemClickListener {
@@ -27,15 +28,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewOnItemTouchListener.Recycl
 
         adapter = ImagesListAdapter()
 
-        repeat(500) {
-            imagesList.add(
-                it,
-                ImageViewItem(
-                    imageUrl = "https://res.cloudinary.com/vahvah/image/upload/v1622782178/VahVah/User%20Profiles/development/owrysswdj9tes1pfavcv.jpg",
-                    order = it + 1
-                )
-            )
-        }
+        imagesList = FakeData.getImagesList(500)
 
         binding.recyclerView.adapter = adapter
         adapter.submitList(imagesList)
@@ -71,6 +64,24 @@ class MainActivity : AppCompatActivity(), RecyclerViewOnItemTouchListener.Recycl
                 val position = viewHolder.adapterPosition
                 imagesList.removeAt(position)
                 binding.recyclerView.adapter?.notifyItemRemoved(position)
+            }
+
+            override fun onSelectedChanged(
+                viewHolder: RecyclerView.ViewHolder?,
+                actionState: Int
+            ) {
+                if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+                    adapter.onSelectedChanged(viewHolder)
+                }
+                super.onSelectedChanged(viewHolder, actionState)
+            }
+
+            override fun clearView(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder
+            ) {
+                adapter.onClearView(viewHolder)
+                super.clearView(recyclerView, viewHolder)
             }
         })
 
