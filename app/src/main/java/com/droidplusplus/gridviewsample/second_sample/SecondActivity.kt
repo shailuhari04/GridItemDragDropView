@@ -29,7 +29,7 @@ class SecondActivity : AppCompatActivity(),
         binding = PortfolioImagesBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
+        binding.progressBarGroup.visibility = View.GONE
         adapter = ImagesListAdapter()
 
         imagesList = FakeData.getImagesList(500)

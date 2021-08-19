@@ -5,68 +5,108 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/portfolioToolbar"
+        android:layout_width="0dp"
+        android:layout_height="?actionBarSize"
+        app:contentInsetStart="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black">
+
+            <ImageView
+                android:id="@+id/backNavigationImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:contentDescription="back image"
+                android:src="@drawable/ic_arrow_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Select Image you like"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/saveButton"
+                app:layout_constraintStart_toEndOf="@+id/backNavigationImageView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/saveButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/blue"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                app:cornerRadius="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/blue" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+
     <TextView
         android:id="@+id/headerTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="20dp"
-        android:text="Select Images from VahVah School or add new image"
+        android:text="Select Images or add new image from phone. (drag images to re-position)"
         android:textColor="@color/primary_text_color"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/portfolioToolbar" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/uploadFromPhoneButton"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
+    <ProgressBar
+        android:id="@+id/uploadPostProgressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:backgroundTint="@color/light_blue"
-        android:text="Upload from Phone"
-        android:textAllCaps="false"
-        android:textColor="@color/blue"
-        android:textSize="14sp"
-        android:textStyle="normal"
-        app:cornerRadius="30dp"
-        app:icon="@drawable/upload_icon"
-        app:iconPadding="24dp"
-        app:iconTint="@color/blue"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
+        android:progress="50"
+        android:progressDrawable="@drawable/upload_progress_drawable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerTextView"
-        app:strokeColor="@color/blue" />
+        tools:max="10"
+        tools:progress="5" />
 
     <TextView
-        android:id="@+id/orTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:gravity="center"
-        android:text="or"
-        android:textColor="@color/primary_text_color"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/uploadFromPhoneButton"
-        app:layout_constraintStart_toStartOf="@+id/uploadFromPhoneButton"
-        app:layout_constraintTop_toBottomOf="@+id/uploadFromPhoneButton" />
-
-    <TextView
-        android:id="@+id/subTitleTextView"
+        android:id="@+id/uploadMessageTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
         android:gravity="center"
-        android:text="You can hold &amp; drag the image if you want to move the image "
-        android:textColor="@color/primary_text_color"
-        android:textSize="14sp"
+        android:text="Uploading Images 50% completed"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orTextView" />
+        app:layout_constraintStart_toStartOf="@+id/uploadPostProgressBar"
+        app:layout_constraintTop_toBottomOf="@+id/uploadPostProgressBar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/imagesListRecyclerView"
@@ -74,41 +114,52 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintBottom_toTopOf="@+id/bottomSpacerCardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/uploadMessageTextView"
         app:spanCount="3"
-        tools:itemCount="12"
+        tools:itemCount="20"
         tools:listitem="@layout/layout_image_item" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottomSpacerCardView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:layout_height="37dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/saveButton"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="28dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/blue"
-            android:text="Save"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:textStyle="normal"
-            app:cornerRadius="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/blue" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/uploadFromPhoneButton3"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/light_blue"
+        android:text="Upload from Phone"
+        android:textAllCaps="false"
+        android:textColor="@color/blue"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:cornerRadius="30dp"
+        app:elevation="10dp"
+        app:icon="@drawable/upload_icon"
+        app:iconGravity="textStart"
+        app:iconPadding="12dp"
+        app:iconTint="@color/blue"
+        app:layout_constraintBottom_toTopOf="@+id/bottomSpacerCardView"
+        app:layout_constraintEnd_toEndOf="@+id/bottomSpacerCardView"
+        app:layout_constraintStart_toStartOf="@+id/bottomSpacerCardView"
+        app:layout_constraintTop_toTopOf="@+id/bottomSpacerCardView"
+        app:strokeColor="@color/blue"
+        app:strokeWidth="2dp" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/progressBarGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="uploadPostProgressBar,uploadMessageTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
